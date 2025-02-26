@@ -61,10 +61,13 @@
     <ClCompile Include="ExercisesDocument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DoneExercises.cpp">
+    <ClCompile Include="StringDataContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExerciseContainer.cpp">
+    <ClCompile Include="DocumentsWorkingTool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TraningSessionsDocument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,7 +87,16 @@
     <ClInclude Include="ExercisesDocument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExerciseContainer.h">
+    <ClInclude Include="StringDataContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TraningSessionsDocument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DocumentManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DocumentsWorkingTool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -102,9 +114,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ToolBar.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="DoneExercise.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

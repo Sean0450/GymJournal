@@ -50,10 +50,7 @@ void AddTraningSessionDialog::AddExerciseLineEdit()
   ExerciseWidget exerciseWidget(this, m_existingExercises);
   QObject::connect(exerciseWidget.m_deleteButton, &QPushButton::clicked, this,
                    [=]() { AddTraningSessionDialog::DeleteButtonClicked(exerciseWidget.m_widget); });
-  if (!m_addedExercises.empty())
-  {
-    m_addedExercises.back().m_deleteButton->setEnabled(false);
-  }
+  BlockUnblockPreviousExerciseEdit(false);
   m_layout->addWidget(exerciseWidget.m_widget);
   m_addedExercises.emplace_back(exerciseWidget);
 }
@@ -62,10 +59,7 @@ void AddTraningSessionDialog::DeleteButtonClicked(QWidget * widget)
 {
   widget->deleteLater();
   m_addedExercises.pop_back();
-  if (!m_addedExercises.empty())
-  {
-    m_addedExercises.back().m_deleteButton->setEnabled(true);
-  }
+  BlockUnblockPreviousExerciseEdit(true);
 }
 
 AddTraningSessionDialog::ExerciseWidget::ExerciseWidget(QWidget * parent, const QStringList & existingExercises)
@@ -107,4 +101,26 @@ AddTraningSessionDialog::ExerciseWidget::ExerciseWidget(QWidget * parent, const 
 void AddTraningSessionDialog::SetExercisesNames(const QStringList & existingExercises)
 {
   m_existingExercises = existingExercises;
+  //Rewrite combobox values
+  for (auto && it : m_addedExercises)
+  {
+    it.SetItem(m_existingExercises);
+  }
+}
+
+void AddTraningSessionDialog::ExerciseWidget::SetItem(const QStringList & existingExercises)
+{
+  m_chooseExercise->clear();
+  m_chooseExercise->addItems(existingExercises);
+}
+
+void AddTraningSessionDialog::BlockUnblockPreviousExerciseEdit(bool flag)
+{
+  if (!m_addedExercises.empty())
+  {
+    m_addedExercises.back().m_deleteButton->setEnabled(flag);
+    m_addedExercises.back().m_chooseExercise->setEnabled(flag);
+    m_addedExercises.back().m_weightEdit->setEnabled(flag);
+    m_addedExercises.back().m_amountEdit->setEnabled(flag);
+  }
 }

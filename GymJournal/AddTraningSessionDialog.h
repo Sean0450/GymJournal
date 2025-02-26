@@ -23,10 +23,13 @@ class AddTraningSessionDialog : public QDialog
     QLineEdit * m_amountEdit = nullptr;
     QLineEdit * m_weightEdit = nullptr;
     QPushButton * m_deleteButton = nullptr;
+    void SetItem(const QStringList & existingExercises);
   };
   std::vector<ExerciseWidget> m_addedExercises;
   bool m_traningIsEnd = false;
   void AddExerciseLineEdit();
+  void BlockUnblockPreviousExerciseEdit(bool flag);
+
 private slots:
   void AddExerciseButtonclicked();
   void EndTraningButtonClicked();
@@ -36,4 +39,6 @@ public:
   AddTraningSessionDialog(QWidget * parent = nullptr);
   bool IsTraningEnded() const noexcept { return m_traningIsEnd; }
   void SetExercisesNames(const QStringList & existingExercises);
+  const std::vector<std::string> GetExercisesNames() const noexcept { return m_exercisesName; }
+  const std::vector<std::string> GetAmountAndWeight() const noexcept { return m_amountAndWeight; }
 };

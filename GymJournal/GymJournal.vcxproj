@@ -100,11 +100,12 @@
     <ClCompile Include="AddExerciseDialog.cpp" />
     <ClCompile Include="AddTraningSessionDialog.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DoneExercises.cpp" />
-    <ClCompile Include="ExerciseContainer.cpp" />
+    <ClCompile Include="DocumentsWorkingTool.cpp" />
     <ClCompile Include="ExercisesDocument.cpp" />
+    <ClCompile Include="StringDataContainer.cpp" />
     <ClCompile Include="ToolBar.cpp" />
     <ClCompile Include="TraningSessionPanel.cpp" />
+    <ClCompile Include="TraningSessionsDocument.cpp" />
     <QtRcc Include="GymJournal.qrc" />
     <QtUic Include="GymJournal.ui" />
     <QtMoc Include="GymJournal.h" />
@@ -113,14 +114,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DocumentManager.h" />
+    <ClInclude Include="DocumentsWorkingTool.h" />
+    <ClInclude Include="TraningSessionsDocument.h" />
     <QtMoc Include="AddExerciseDialog.h" />
     <QtMoc Include="AddTraningSessionDialog.h" />
     <ClInclude Include="Controller.h" />
-    <QtMoc Include="DoneExercise.h" />
     <ClInclude Include="ExercisePanelObserver.h" />
     <QtMoc Include="ToolBar.h" />
-    <ClInclude Include="ExerciseContainer.h" />
     <ClInclude Include="ExercisesDocument.h" />
+    <ClInclude Include="StringDataContainer.h" />
     <ClInclude Include="TraningSessionPanelObserver.h" />
     <QtMoc Include="TraningSessionsPanel.h" />
     <QtMoc Include="ExercisesPanel.h" />

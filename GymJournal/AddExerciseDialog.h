@@ -27,5 +27,5 @@ public:
 
 static bool IsLineEditEmpty(QLineEdit * edit) noexcept
 {
-  return edit->text() == "";
+  return edit->text().isEmpty();
 }

@@ -14,23 +14,29 @@ std::shared_ptr<Controller> Controller::Create(std::shared_ptr<GymJournal> journ
 
 void Controller::AddExerciseButtonClicked(std::string_view exercise, std::string_view musculesGroup)
 {
-  m_exercisedoc.AddExercise(exercise, musculesGroup);
+	m_docManager.GetExercisesDocument().AddExercise(exercise, musculesGroup);
 }
 
 void Controller::ViewAllExercisesButtonClicked()
 {
-  m_exercisedoc.GetStringFormat();
+	m_docManager.GetExercisesDocument().GetStringFormat();
 }
 
-void Controller::AddTraningSessionButtonClicked()
+void Controller::AddTraningSessionButtonClicked(const std::vector<std::string> & exercisesNames,
+                                              const std::vector<std::string> & amountAndWeight, const std::string & date)
 {
+	m_docManager.GetTraningsDocument().AddTraningSession(exercisesNames, amountAndWeight, date);
 }
 
 void Controller::ViewAllTraningSessionsButtonClicked()
 {
 }
 
-const std::vector<std::string> Controller::GetExercisesTypes()
+std::vector<std::string> Controller::GetExercisesTypes()
 {
-  return GetExercisesName(m_exercisedoc.GetStringFormat().value());
+	auto exerciseNames = m_docManager.GetExercisesDocument().GetStringFormat();
+	if (exerciseNames.has_value()) {
+		return exerciseNames.value().GetKeys();
+	}
+	return std::vector<std::string>();
 }

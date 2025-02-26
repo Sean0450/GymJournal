@@ -24,25 +24,22 @@ void TraningSessionsPanel::SetObserver(std::weak_ptr<TraningSessionPanelObserver
 
 void TraningSessionsPanel::AddTraningSessionButtonClicked()
 {
-  if (m_exercisesList.empty())
+  if (auto observer = m_observer.lock())
   {
-    if (auto observer = m_observer.lock())
-    {
-      VectorToStringList(observer->GetExercisesTypes());
-      m_traningDialog->SetExercisesNames(m_exercisesList);
-    }
+    VectorToStringList(observer->GetExercisesTypes());
+    m_traningDialog->SetExercisesNames(m_exercisesList);
   }
-
+  m_traningDialog->exec();
   if (m_traningDialog->IsTraningEnded())
   {
     if (auto observer = m_observer.lock())
     {
-      observer->AddTraningSessionButtonClicked();
+      observer->AddTraningSessionButtonClicked(m_traningDialog->GetExercisesNames(), m_traningDialog->GetAmountAndWeight(),
+                                               QDateTime::currentDateTime().toString().toStdString());
     }
     m_traningDialog->deleteLater();
     m_traningDialog = new AddTraningSessionDialog(this);
   }
-  m_traningDialog->exec();
 }
 
 void TraningSessionsPanel::ViewAllTraningSessionsButtonClicked()
@@ -55,8 +52,9 @@ void TraningSessionsPanel::ViewAllTraningSessionsButtonClicked()
 
 void TraningSessionsPanel::VectorToStringList(const std::vector<std::string> & existingExercises)
 {
-  for (auto && it : existingExercises)
+  m_exercisesList.resize(existingExercises.size());
+  for (auto i = 0; i < existingExercises.size(); ++i)
   {
-    m_exercisesList.emplace_back(QString::fromStdString(it));
+    m_exercisesList[i] = QString::fromStdString(existingExercises[i]);
   }
 }

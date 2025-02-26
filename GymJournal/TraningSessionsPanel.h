@@ -15,7 +15,7 @@ class TraningSessionsPanel : public QWidget
   AddTraningSessionDialog * m_traningDialog = nullptr;
   std::weak_ptr<TraningSessionPanelObserver> m_observer;
   QStringList m_exercisesList;
-  void VectorToStringList(const std::vector<std::string>& existineExercises);
+  void VectorToStringList(const std::vector<std::string> & existineExercises);
 private slots:
   void AddTraningSessionButtonClicked();
   void ViewAllTraningSessionsButtonClicked();
