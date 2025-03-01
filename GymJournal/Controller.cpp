@@ -19,7 +19,7 @@ void Controller::AddExerciseButtonClicked(std::string_view exercise, std::string
 
 void Controller::ViewAllExercisesButtonClicked()
 {
-	m_docManager.GetExercisesDocument().GetStringFormat();
+	m_docManager.GetExercisesDocument().GetStringFormat().value().GetAllData();
 }
 
 void Controller::AddTraningSessionButtonClicked(const std::vector<std::string> & exercisesNames,

@@ -19,4 +19,7 @@ constexpr auto statisticsButton = "Statistics";
 constexpr auto settingsButton = "Settings";
 constexpr auto deleteButton = "Delete";
 constexpr auto setDateButton = "Set Date";
+
+constexpr auto exercisesArrayName = "exercises";
+constexpr auto exerciseName = "Exercise name";
 } // namespace Resources

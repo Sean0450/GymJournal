@@ -6,25 +6,13 @@ void TraningSessionsDocument::AddTraningSession(const std::vector<std::string> &
   auto oldData = documentingFunctions::GetJsonFormat(m_path);
   rapidjson::Document jsonDoc;
   jsonDoc.SetObject();
-  if (oldData.has_value())
+  if (oldData.has_value() && !oldData.value().HasParseError())
   {
     documentingFunctions::ReadOldData(oldData.value(), jsonDoc);
   }
-
-  rapidjson::Value traning(rapidjson::kArrayType);
-  rapidjson::Value exerciseNamesConverter;
-  rapidjson::Value amountAndWeightConverter;
-  for (auto i = 0; i < exercisesNames.size(); ++i)
-  {
-    rapidjson::Value exercise(rapidjson::kObjectType);
-    exerciseNamesConverter.SetString(exercisesNames[i].c_str(), jsonDoc.GetAllocator());
-    amountAndWeightConverter.SetString(amountAndWeight[i].c_str(), jsonDoc.GetAllocator());
-    exercise.AddMember(exerciseNamesConverter, amountAndWeightConverter, jsonDoc.GetAllocator());
-    traning.PushBack(exercise, jsonDoc.GetAllocator());
-  }
   rapidjson::Value dateConverter;
   dateConverter.SetString(traningDate.c_str(), jsonDoc.GetAllocator());
-  jsonDoc.AddMember(dateConverter, traning, jsonDoc.GetAllocator());
+  jsonDoc.AddMember(dateConverter, TranslateStringToJson(exercisesNames, amountAndWeight, jsonDoc), jsonDoc.GetAllocator());
   documentingFunctions::WriteJsonToFile(jsonDoc, m_path);
 }
 
@@ -49,4 +37,22 @@ std::optional<std::vector<StringDataContainer>> TraningSessionsDocument::GetStri
     return data;
   }
   return std::nullopt;
+}
+
+rapidjson::Value TraningSessionsDocument::TranslateStringToJson(const std::vector<std::string> & exercisesNames,
+                                                                const std::vector<std::string> & amountAndWeight,
+                                                                rapidjson::Document & jsonDoc)
+{
+  rapidjson::Value traning(rapidjson::kArrayType);
+  rapidjson::Value exerciseNamesConverter;
+  rapidjson::Value amountAndWeightConverter;
+  for (auto i = 0; i < exercisesNames.size(); ++i)
+  {
+    rapidjson::Value exercise(rapidjson::kObjectType);
+    exerciseNamesConverter.SetString(exercisesNames[i].c_str(), jsonDoc.GetAllocator());
+    amountAndWeightConverter.SetString(amountAndWeight[i].c_str(), jsonDoc.GetAllocator());
+    exercise.AddMember(exerciseNamesConverter, amountAndWeightConverter, jsonDoc.GetAllocator());
+    traning.PushBack(exercise, jsonDoc.GetAllocator());
+  }
+  return traning;
 }

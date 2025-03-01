@@ -35,7 +35,7 @@ void TraningSessionsPanel::AddTraningSessionButtonClicked()
     if (auto observer = m_observer.lock())
     {
       observer->AddTraningSessionButtonClicked(m_traningDialog->GetExercisesNames(), m_traningDialog->GetAmountAndWeight(),
-                                               QDateTime::currentDateTime().toString().toStdString());
+                                               QDate::currentDate().toString().toStdString());
     }
     m_traningDialog->deleteLater();
     m_traningDialog = new AddTraningSessionDialog(this);
