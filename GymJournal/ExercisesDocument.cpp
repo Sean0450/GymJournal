@@ -15,7 +15,7 @@ rapidjson::Value ExercisesDocument::TranslateStringToJson(const std::string & ex
 
 std::optional<StringDataContainer> ExercisesDocument::GetStringFormat()
 {
-  auto jsonDoc = documentingFunctions::GetJsonFormat(m_path, WraperTypes::Read);
+  auto jsonDoc = documentingFunctions::GetJsonFormat(m_path);
   if (!jsonDoc.value().HasParseError())
   {
     const rapidjson::Value & exercises = jsonDoc.value()["exercises"];
@@ -45,14 +45,5 @@ void ExercisesDocument::AddExercise(std::string_view exercisename, std::string_v
   }
   exercises.PushBack(TranslateStringToJson(std::string(exercisename), std::string(musculesGroup), doc), doc.GetAllocator());
   doc.AddMember("exercises", exercises, doc.GetAllocator());
-  rapidjson::StringBuffer buffer;
-  rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-  doc.Accept(writer);
-  std::ofstream file(m_path);
-  if (!file.is_open())
-  {
-    return;
-  }
-  file << buffer.GetString();
-  file.close();
+  documentingFunctions::WriteJsonToFile(doc, m_path);
 }

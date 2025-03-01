@@ -5,8 +5,6 @@
 class TraningSessionsDocument
 {
   const std::string m_path = "TraningSessions.json";
-  rapidjson::Value TranslateStringToJson(const std::string & exercisename, const std::string & musculesGrioup,
-                                         rapidjson::Document & doc);
 
 public:
   std::optional<std::vector<StringDataContainer>> GetStringFormat();

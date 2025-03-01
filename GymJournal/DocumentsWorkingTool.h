@@ -13,14 +13,9 @@
 #include "rapidjson-master/include/rapidjson/writer.h"
 
 
-enum class WraperTypes
-{
-  Read,
-  Write
-};
-
 namespace documentingFunctions
 {
-std::optional<rapidjson::Document> GetJsonFormat(const std::string & path, WraperTypes type);
-
-}
+std::optional<rapidjson::Document> GetJsonFormat(const std::string & path);
+void WriteJsonToFile(rapidjson::Document & doc, const std::string & path);
+void ReadOldData(rapidjson::Document & readingDocument, rapidjson::Document & writingDocument);
+} // namespace documentingFunctions
