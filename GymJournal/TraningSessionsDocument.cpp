@@ -1,36 +1,42 @@
 #include "TraningSessionsDocument.h"
 
 void TraningSessionsDocument::AddTraningSession(const std::vector<std::string> & exercisesNames,
-                                                const std::vector<std::string> & amountAndWeight, const std::string & traningDate)
+                                                const std::vector<std::string> & amountAndWeight, 
+                                                const std::string & traningDate)
 {
-  auto oldData = documentingFunctions::GetJsonFormat(m_path);
+  using namespace documentingFunctions;
+
+  auto oldData = GetJsonFormat(m_path);
   rapidjson::Document jsonDoc;
+  auto & allocator{jsonDoc.GetAllocator()};
   jsonDoc.SetObject();
-  if (oldData.has_value() && !oldData.value().HasParseError())
+
+  if (oldData && !oldData.value().HasParseError())
   {
-    documentingFunctions::ReadOldData(oldData.value(), jsonDoc);
+    ReadOldData(oldData.value(), jsonDoc);
   }
-  rapidjson::Value dateConverter;
-  dateConverter.SetString(traningDate.c_str(), jsonDoc.GetAllocator());
-  jsonDoc.AddMember(dateConverter, TranslateStringToJson(exercisesNames, amountAndWeight, jsonDoc), jsonDoc.GetAllocator());
-  documentingFunctions::WriteJsonToFile(jsonDoc, m_path);
+
+  jsonDoc.AddMember(rapidjson::Value(traningDate.c_str(), allocator).Move(), 
+                    TranslateStringToJson(exercisesNames, amountAndWeight, jsonDoc),
+                    allocator);
+  WriteJsonToFile(jsonDoc, m_path);
 }
 
 std::optional<std::vector<StringDataContainer>> TraningSessionsDocument::GetStringFormat()
 {
   auto jsonDoc = documentingFunctions::GetJsonFormat(m_path);
-  if (jsonDoc.has_value() && !jsonDoc.value().HasParseError())
+  if (jsonDoc && !jsonDoc.value().HasParseError())
   {
     std::vector<StringDataContainer> data;
     //Iterates document than iterates inside exerciseArray. At the end iterates inside array and makes every member a Value;
-    for (auto && it : jsonDoc.value().GetObject())
+    for (auto && documentObject : jsonDoc.value().GetObject())
     {
       data.emplace_back(StringDataContainer());
-      for (auto && it2 : it.value.GetArray())
+      for (auto && array : documentObject.value.GetArray())
       {
-        for (auto itr3 = it2.MemberBegin(); itr3 != it2.MemberEnd(); ++itr3)
+        for (auto arrayElement = array.MemberBegin(); arrayElement != array.MemberEnd(); ++arrayElement)
         {
-          data.back().AddData(itr3->name.GetString(), itr3->value.GetString());
+          data.back().AddData(arrayElement->name.GetString(), arrayElement->value.GetString());
         }
       }
     }
@@ -43,16 +49,17 @@ rapidjson::Value TraningSessionsDocument::TranslateStringToJson(const std::vecto
                                                                 const std::vector<std::string> & amountAndWeight,
                                                                 rapidjson::Document & jsonDoc)
 {
-  rapidjson::Value traning(rapidjson::kArrayType);
-  rapidjson::Value exerciseNamesConverter;
-  rapidjson::Value amountAndWeightConverter;
-  for (auto i = 0; i < exercisesNames.size(); ++i)
+  using namespace rapidjson;
+  auto & allocator{jsonDoc.GetAllocator()};
+  Value traning(rapidjson::kArrayType);
+
+  for (int i = 0; i < static_cast<int>(exercisesNames.size()); ++i)
   {
-    rapidjson::Value exercise(rapidjson::kObjectType);
-    exerciseNamesConverter.SetString(exercisesNames[i].c_str(), jsonDoc.GetAllocator());
-    amountAndWeightConverter.SetString(amountAndWeight[i].c_str(), jsonDoc.GetAllocator());
-    exercise.AddMember(exerciseNamesConverter, amountAndWeightConverter, jsonDoc.GetAllocator());
-    traning.PushBack(exercise, jsonDoc.GetAllocator());
+    Value exercise(kObjectType);
+    exercise.AddMember(Value(exercisesNames[i].c_str(), allocator).Move(), 
+                       Value(amountAndWeight[i].c_str(), allocator).Move(),
+                       allocator);
+    traning.PushBack(exercise, allocator);
   }
   return traning;
 }

@@ -14,6 +14,7 @@ std::optional<rapidjson::Document> GetJsonFormat(const std::string & path)
   }
   return std::nullopt;
 }
+
 void ReadOldData(rapidjson::Document & readingDocument, rapidjson::Document & writingDocument)
 {
   if (readingDocument.IsObject())

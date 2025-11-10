@@ -1,31 +1,35 @@
 #include "ExercisesDocument.h"
 
 
-rapidjson::Value ExercisesDocument::TranslateStringToJson(const std::string & exercisename, const std::string & musculesGrioup,
+rapidjson::Value ExercisesDocument::TranslateStringToJson(const std::string & exercisename, 
+                                                          const std::string & musculesGroup,
                                                           rapidjson::Document & doc)
 {
-  rapidjson::Value converter;
-  rapidjson::Value exercise(rapidjson::kObjectType);
-  converter.SetString(exercisename.c_str(), doc.GetAllocator());
-  rapidjson::Value resourcesDataConverter;
-  resourcesDataConverter.SetString(Resources::exerciseName, doc.GetAllocator());
-  exercise.AddMember(resourcesDataConverter, converter, doc.GetAllocator());
-  converter.SetString(musculesGrioup.c_str(), doc.GetAllocator());
-  resourcesDataConverter.SetString(Resources::musculesGroupLabel, doc.GetAllocator());
-  exercise.AddMember(resourcesDataConverter, converter, doc.GetAllocator());
+  using namespace rapidjson;
+  auto& allocator{doc.GetAllocator()};
+  Value exercise(rapidjson::kObjectType);
+
+  exercise.AddMember(Value(Resources::exerciseName, allocator).Move(), 
+                     Value(exercisename.c_str(), allocator).Move(),
+                     allocator);
+  exercise.AddMember(Value(Resources::musculesGroupLabel, doc.GetAllocator()).Move(),
+                     Value(musculesGroup.c_str(), allocator).Move(), 
+                     allocator);
   return exercise;
 }
 
 std::optional<StringDataContainer> ExercisesDocument::GetStringFormat()
 {
+  using namespace Resources;
   auto jsonDoc = documentingFunctions::GetJsonFormat(m_path);
+
   if (!jsonDoc.value().HasParseError())
   {
-    const rapidjson::Value & exercises = jsonDoc.value()[Resources::exercisesArrayName];
+    const rapidjson::Value& exercises = jsonDoc.value()[exercisesArrayName];
     StringDataContainer data;
     for (auto && it : exercises.GetArray())
     {
-      data.AddData(it[Resources::exerciseName].GetString(), it[Resources::musculesGroupLabel].GetString());
+      data.AddData(it[exerciseName].GetString(), it[musculesGroupLabel].GetString());
     }
     return data;
   }
@@ -34,23 +38,27 @@ std::optional<StringDataContainer> ExercisesDocument::GetStringFormat()
 
 void ExercisesDocument::AddExercise(std::string_view exercisename, std::string_view musculesGroup)
 {
+  using namespace rapidjson;
+  using namespace Resources;
+
   auto oldData = documentingFunctions::GetJsonFormat(m_path);
-  rapidjson::Document doc;
+  Document doc;
   doc.SetObject();
-  if (oldData.has_value() && !oldData.value().HasParseError())
+
+  if (oldData && !oldData.value().HasParseError())
   {
-      oldData.value()[Resources::exercisesArrayName].PushBack(TranslateStringToJson(std::string(exercisename),
+      oldData.value()[exercisesArrayName].PushBack(TranslateStringToJson(std::string(exercisename),
                                                                                     std::string(musculesGroup), oldData.value()),
-                                                              oldData.value().GetAllocator());
+                                                                                    oldData.value().GetAllocator());
       documentingFunctions::ReadOldData(oldData.value(), doc);
   }
   else
   {
-    rapidjson::Value exercises(rapidjson::kArrayType);
-    exercises.PushBack(TranslateStringToJson(std::string(exercisename), std::string(musculesGroup), doc), doc.GetAllocator());
-    rapidjson::Value stringParser;
-    stringParser.SetString(Resources::exercisesArrayName, doc.GetAllocator());
-    doc.AddMember(stringParser, exercises, doc.GetAllocator());
+    auto& allocator{doc.GetAllocator()};
+    Value exercises(rapidjson::kArrayType);
+
+    exercises.PushBack(TranslateStringToJson(std::string(exercisename), std::string(musculesGroup), doc), allocator);
+    doc.AddMember(Value(exercisesArrayName, allocator).Move(), exercises, allocator);
   }
   documentingFunctions::WriteJsonToFile(doc, m_path);
 }

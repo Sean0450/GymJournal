@@ -24,11 +24,10 @@ class AddTraningSessionDialog : public QDialog
     QLineEdit * m_weightEdit = nullptr;
     QPushButton * m_deleteButton = nullptr;
     void SetItem(const QStringList & existingExercises);
+    static void BlockUnblockPreviousExerciseEdit(const std::vector<ExerciseWidget> & widgets, bool flag);
   };
   std::vector<ExerciseWidget> m_addedExercises;
   bool m_traningIsEnd = false;
-  void AddExerciseLineEdit();
-  void BlockUnblockPreviousExerciseEdit(bool flag);
 
 private slots:
   void AddExerciseButtonclicked();

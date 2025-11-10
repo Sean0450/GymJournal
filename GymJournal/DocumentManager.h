@@ -4,14 +4,12 @@
 #include "TraningSessionsDocument.h"
 
 
-class DocumentManager {
-	ExercisesDocument m_exerciseDoc;
-	TraningSessionsDocument m_traningSessionsDoc;
+class DocumentManager
+{
+  ExercisesDocument m_exerciseDoc;
+  TraningSessionsDocument m_traningSessionsDoc;
+
 public:
-	ExercisesDocument& GetExercisesDocument() noexcept {
-		return m_exerciseDoc;
-	}
-	TraningSessionsDocument& GetTraningsDocument() noexcept {
-		return m_traningSessionsDoc;
-	}
+  ExercisesDocument& GetExercisesDocument() noexcept { return m_exerciseDoc; }
+  TraningSessionsDocument& GetTraningsDocument() noexcept { return m_traningSessionsDoc; }
 };

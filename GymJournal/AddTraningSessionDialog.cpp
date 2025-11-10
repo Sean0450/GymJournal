@@ -28,7 +28,12 @@ AddTraningSessionDialog::AddTraningSessionDialog(QWidget * parent)
 
 void AddTraningSessionDialog::AddExerciseButtonclicked()
 {
-  AddExerciseLineEdit();
+  ExerciseWidget exerciseWidget(this, m_existingExercises);
+  QObject::connect(exerciseWidget.m_deleteButton, &QPushButton::clicked, this,
+                   [=]() { AddTraningSessionDialog::DeleteButtonClicked(exerciseWidget.m_widget); });
+  ExerciseWidget::BlockUnblockPreviousExerciseEdit(m_addedExercises, false);
+  m_layout->addWidget(exerciseWidget.m_widget);
+  m_addedExercises.emplace_back(exerciseWidget);
 }
 
 void AddTraningSessionDialog::EndTraningButtonClicked()
@@ -39,27 +44,17 @@ void AddTraningSessionDialog::EndTraningButtonClicked()
     auto amount = it.m_amountEdit->text().toStdString();
     auto weight = it.m_weightEdit->text().toStdString();
     assert(!amount.empty() and !weight.empty());
-    m_amountAndWeight.emplace_back(amount + " X " + weight);
+    m_amountAndWeight.emplace_back(amount + Resources::x + weight);
   }
   m_traningIsEnd = true;
   close();
-}
-
-void AddTraningSessionDialog::AddExerciseLineEdit()
-{
-  ExerciseWidget exerciseWidget(this, m_existingExercises);
-  QObject::connect(exerciseWidget.m_deleteButton, &QPushButton::clicked, this,
-                   [=]() { AddTraningSessionDialog::DeleteButtonClicked(exerciseWidget.m_widget); });
-  BlockUnblockPreviousExerciseEdit(false);
-  m_layout->addWidget(exerciseWidget.m_widget);
-  m_addedExercises.emplace_back(exerciseWidget);
 }
 
 void AddTraningSessionDialog::DeleteButtonClicked(QWidget * widget)
 {
   widget->deleteLater();
   m_addedExercises.pop_back();
-  BlockUnblockPreviousExerciseEdit(true);
+  ExerciseWidget::BlockUnblockPreviousExerciseEdit(m_addedExercises, false);
 }
 
 AddTraningSessionDialog::ExerciseWidget::ExerciseWidget(QWidget * parent, const QStringList & existingExercises)
@@ -114,13 +109,14 @@ void AddTraningSessionDialog::ExerciseWidget::SetItem(const QStringList & existi
   m_chooseExercise->addItems(existingExercises);
 }
 
-void AddTraningSessionDialog::BlockUnblockPreviousExerciseEdit(bool flag)
+void AddTraningSessionDialog::ExerciseWidget::BlockUnblockPreviousExerciseEdit(const std::vector<ExerciseWidget> & widgets,
+                                                                               bool flag)
 {
-  if (!m_addedExercises.empty())
+  if (!widgets.empty())
   {
-    m_addedExercises.back().m_deleteButton->setEnabled(flag);
-    m_addedExercises.back().m_chooseExercise->setEnabled(flag);
-    m_addedExercises.back().m_weightEdit->setEnabled(flag);
-    m_addedExercises.back().m_amountEdit->setEnabled(flag);
+    widgets.back().m_deleteButton->setEnabled(flag);
+    widgets.back().m_chooseExercise->setEnabled(flag);
+    widgets.back().m_weightEdit->setEnabled(flag);
+    widgets.back().m_amountEdit->setEnabled(flag);
   }
 }
