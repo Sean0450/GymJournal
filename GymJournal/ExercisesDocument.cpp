@@ -1,5 +1,5 @@
 #include "ExercisesDocument.h"
-
+#include "Exercise.hpp"
 
 rapidjson::Value ExercisesDocument::TranslateStringToJson(const std::string & exercisename, 
                                                           const std::string & musculesGroup,
@@ -36,7 +36,7 @@ std::optional<StringDataContainer> ExercisesDocument::GetStringFormat()
   return std::nullopt;
 }
 
-void ExercisesDocument::AddExercise(std::string_view exercisename, std::string_view musculesGroup)
+void ExercisesDocument::AddExercise(Exercise&& exercise)
 {
   using namespace rapidjson;
   using namespace Resources;
@@ -47,9 +47,10 @@ void ExercisesDocument::AddExercise(std::string_view exercisename, std::string_v
 
   if (oldData && !oldData.value().HasParseError())
   {
-      oldData.value()[exercisesArrayName].PushBack(TranslateStringToJson(std::string(exercisename),
-                                                                                    std::string(musculesGroup), oldData.value()),
-                                                                                    oldData.value().GetAllocator());
+      oldData.value()[exercisesArrayName].PushBack(TranslateStringToJson(exercise.exerciseName,
+                                                                         exercise.musculesGroup, 
+                                                                         oldData.value()),
+                                                                         oldData.value().GetAllocator());
       documentingFunctions::ReadOldData(oldData.value(), doc);
   }
   else
@@ -57,7 +58,7 @@ void ExercisesDocument::AddExercise(std::string_view exercisename, std::string_v
     auto& allocator{doc.GetAllocator()};
     Value exercises(rapidjson::kArrayType);
 
-    exercises.PushBack(TranslateStringToJson(std::string(exercisename), std::string(musculesGroup), doc), allocator);
+    exercises.PushBack(TranslateStringToJson(exercise.exerciseName, exercise.musculesGroup, doc), allocator);
     doc.AddMember(Value(exercisesArrayName, allocator).Move(), exercises, allocator);
   }
   documentingFunctions::WriteJsonToFile(doc, m_path);

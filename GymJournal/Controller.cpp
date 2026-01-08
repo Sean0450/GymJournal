@@ -1,5 +1,5 @@
 #include "Controller.h"
-
+#include "Exercise.hpp"
 
 Controller::Controller(Private priv, std::shared_ptr<GymJournal> journal)
   : m_view(std::move(journal))
@@ -12,9 +12,9 @@ std::shared_ptr<Controller> Controller::Create(std::shared_ptr<GymJournal> journ
   return controller;
 }
 
-void Controller::AddExerciseButtonClicked(std::string_view exercise, std::string_view musculesGroup)
+void Controller::AddExerciseButtonClicked(std::string && exerciseName, std::string && musculesGroup)
 {
-	m_docManager.GetExercisesDocument().AddExercise(exercise, musculesGroup);
+  m_docManager.GetExercisesDocument().AddExercise({std::move(exerciseName), std::move(musculesGroup)});
 }
 
 void Controller::ViewAllExercisesButtonClicked()

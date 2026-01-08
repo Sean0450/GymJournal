@@ -21,8 +21,8 @@ private slots:
 
 public:
   AddExerciseDialog(QWidget * parent = nullptr);
-  std::string_view GetExerciseName() const noexcept { return m_exerciseName; }
-  std::string_view GetMusculesGroupName() const noexcept { return m_musculesGroupName; }
+  std::string GetExerciseName() const noexcept { return m_exerciseName; }
+  std::string GetMusculesGroupName() const noexcept { return m_musculesGroupName; }
 };
 
 static bool IsLineEditEmpty(QLineEdit * edit) noexcept

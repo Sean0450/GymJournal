@@ -3,6 +3,7 @@
 #include "DocumentsWorkingTool.h"
 #include "Resources.h"
 
+struct Exercise;
 
 class ExercisesDocument
 {
@@ -13,5 +14,5 @@ class ExercisesDocument
 
 public:
   std::optional<StringDataContainer> GetStringFormat();
-  void AddExercise(std::string_view exercisename, std::string_view musculesGroup);
+  void AddExercise(Exercise&& exercise);
 };

@@ -1,4 +1,5 @@
 #include "ExercisesPanel.h"
+#include "Exercise.hpp"
 
 ExercisesPanel::ExercisesPanel(QWidget * parent)
   : QWidget(parent)
@@ -25,7 +26,7 @@ void ExercisesPanel::AddExerciseButtonClicked()
   {
     if (!exerciseName.empty() and !musculesGroup.empty())
     {
-      observer->AddExerciseButtonClicked(exerciseName, musculesGroup);
+      observer->AddExerciseButtonClicked({exerciseName, musculesGroup});
     }
   }
 }
