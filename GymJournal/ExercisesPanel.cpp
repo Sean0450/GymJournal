@@ -26,7 +26,7 @@ void ExercisesPanel::AddExerciseButtonClicked()
   {
     if (!exerciseName.empty() and !musculesGroup.empty())
     {
-      observer->AddExerciseButtonClicked({exerciseName, musculesGroup});
+      observer->AddExerciseButtonClicked(std::move(exerciseName), std::move(musculesGroup));
     }
   }
 }
