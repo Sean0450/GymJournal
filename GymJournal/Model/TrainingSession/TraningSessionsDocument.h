@@ -2,7 +2,7 @@
 
 #include <optional>
 
-#include "DocumentsWorkingTool.h"
+#include "../DocumentsWorkingTool.h"
 
 
 class TraningSessionsDocument

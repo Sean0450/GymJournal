@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ExercisesDocument.h"
-#include "TraningSessionsDocument.h"
+#include "TrainingSession/TraningSessionsDocument.h"
 
 
 class DocumentManager

@@ -23,7 +23,7 @@ std::optional<StringDataContainer> ExercisesDocument::GetStringFormat()
   using namespace Resources;
   auto jsonDoc = documentingFunctions::GetJsonFormat(m_path);
 
-  if (!jsonDoc.value().HasParseError())
+  if (jsonDoc and !jsonDoc.value().HasParseError())
   {
     const rapidjson::Value& exercises = jsonDoc.value()[exercisesArrayName];
     StringDataContainer data;
