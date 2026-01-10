@@ -1,5 +1,9 @@
 #include "GymJournal.h"
 
+#include "View/ExercisesPanel.h"
+#include "View/ToolBar.h"
+#include "View/TraningSessionsPanel.h"
+
 GymJournal::GymJournal(QWidget * parent)
   : QMainWindow(parent)
 {

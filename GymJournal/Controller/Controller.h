@@ -2,12 +2,13 @@
 
 #include <unordered_map>
 
-#include "DocumentManager.h"
+#include "Model/DocumentManager.h"
 #include "ExercisePanelObserver.h"
-#include "ExercisesDocument.h"
-#include "GymJournal.h"
+#include "Model/ExercisesDocument.h"
 #include "TraningSessionPanelObserver.h"
 
+
+class GymJournal;
 
 class Controller : public ExercisePanelObserver,
                    public TraningSessionPanelObserver

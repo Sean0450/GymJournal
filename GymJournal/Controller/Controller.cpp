@@ -1,5 +1,6 @@
 #include "Controller.h"
-#include "Exercise.hpp"
+#include "GymJournal.h"
+#include "Model/Exercise.hpp"
 
 Controller::Controller(Private priv, std::shared_ptr<GymJournal> journal)
   : m_view(std::move(journal))

@@ -1,7 +1,9 @@
 #include <QtWidgets/QApplication>
 
 #include "GymJournal.h"
-#include "Controller.h"
+#include "Controller/Controller.h"
+#include "View/ExercisesPanel.h"
+#include "View/TraningSessionsPanel.h"
 
 
 int main(int argc, char *argv[])

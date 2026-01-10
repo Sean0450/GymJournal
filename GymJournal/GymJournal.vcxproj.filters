@@ -40,34 +40,37 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExercisesPanel.cpp">
+    <ClCompile Include="Controller\Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TraningSessionPanel.cpp">
+    <ClCompile Include="Model\DocumentsWorkingTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AddExerciseDialog.cpp">
+    <ClCompile Include="Model\ExerciseName.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AddTraningSessionDialog.cpp">
+    <ClCompile Include="Model\ExercisesDocument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ToolBar.cpp">
+    <ClCompile Include="Model\StringDataContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="Model\TraningSessionsDocument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExercisesDocument.cpp">
+    <ClCompile Include="View\AddExerciseDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringDataContainer.cpp">
+    <ClCompile Include="View\AddTraningSessionDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DocumentsWorkingTool.cpp">
+    <ClCompile Include="View\ExercisesPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TraningSessionsDocument.cpp">
+    <ClCompile Include="View\ToolBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View\TraningSessionPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,46 +78,59 @@
     <ClInclude Include="Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExercisePanelObserver.h">
+    <ClInclude Include="Controller\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TraningSessionPanelObserver.h">
+    <ClInclude Include="Controller\ExercisePanelObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
+    <ClInclude Include="Controller\TraningSessionPanelObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExercisesDocument.h">
+    <ClInclude Include="Model\DocumentManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringDataContainer.h">
+    <ClInclude Include="Model\DocumentsWorkingTool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TraningSessionsDocument.h">
+    <ClInclude Include="Model\Exercise.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DocumentManager.h">
+    <ClInclude Include="Model\ExerciseName.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DocumentsWorkingTool.h">
+    <ClInclude Include="Model\ExercisesDocument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\StringDataContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\TraningSessionsDocument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ExercisesPanel.h">
+    <QtMoc Include="View\AddExerciseDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="TraningSessionsPanel.h">
+    <QtMoc Include="View\AddTraningSessionDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AddExerciseDialog.h">
+    <QtMoc Include="View\ExercisesPanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="AddTraningSessionDialog.h">
+    <QtMoc Include="View\ToolBar.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="ToolBar.h">
+    <QtMoc Include="View\TraningSessionsPanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="View\ViewAllExercisesDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\ExercisesList.json" />
+    <None Include="Model\TraningSessions.json" />
   </ItemGroup>
 </Project>

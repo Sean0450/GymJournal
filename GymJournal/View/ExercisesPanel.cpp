@@ -1,5 +1,5 @@
 #include "ExercisesPanel.h"
-#include "Exercise.hpp"
+#include "Controller/ExercisePanelObserver.h"
 
 ExercisesPanel::ExercisesPanel(QWidget * parent)
   : QWidget(parent)

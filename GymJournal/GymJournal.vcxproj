@@ -97,37 +97,45 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AddExerciseDialog.cpp" />
-    <ClCompile Include="AddTraningSessionDialog.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DocumentsWorkingTool.cpp" />
-    <ClCompile Include="ExercisesDocument.cpp" />
-    <ClCompile Include="StringDataContainer.cpp" />
-    <ClCompile Include="ToolBar.cpp" />
-    <ClCompile Include="TraningSessionPanel.cpp" />
-    <ClCompile Include="TraningSessionsDocument.cpp" />
+    <ClCompile Include="Model\DocumentsWorkingTool.cpp" />
+    <ClCompile Include="Model\ExerciseName.cpp" />
+    <ClCompile Include="Model\ExercisesDocument.cpp" />
+    <ClCompile Include="Model\StringDataContainer.cpp" />
+    <ClCompile Include="Model\TraningSessionsDocument.cpp" />
+    <ClCompile Include="View\AddExerciseDialog.cpp" />
+    <ClCompile Include="View\AddTraningSessionDialog.cpp" />
+    <ClCompile Include="View\ExercisesPanel.cpp" />
+    <ClCompile Include="View\ToolBar.cpp" />
+    <ClCompile Include="View\TraningSessionPanel.cpp" />
     <QtRcc Include="GymJournal.qrc" />
     <QtUic Include="GymJournal.ui" />
     <QtMoc Include="GymJournal.h" />
-    <ClCompile Include="ExercisesPanel.cpp" />
+    <ClCompile Include="Controller\Controller.cpp" />
     <ClCompile Include="GymJournal.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DocumentManager.h" />
-    <ClInclude Include="DocumentsWorkingTool.h" />
-    <ClInclude Include="TraningSessionsDocument.h" />
-    <QtMoc Include="AddExerciseDialog.h" />
-    <QtMoc Include="AddTraningSessionDialog.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="ExercisePanelObserver.h" />
-    <QtMoc Include="ToolBar.h" />
-    <ClInclude Include="ExercisesDocument.h" />
-    <ClInclude Include="StringDataContainer.h" />
-    <ClInclude Include="TraningSessionPanelObserver.h" />
-    <QtMoc Include="TraningSessionsPanel.h" />
-    <QtMoc Include="ExercisesPanel.h" />
+    <ClInclude Include="Controller\Controller.h" />
+    <ClInclude Include="Controller\ExercisePanelObserver.h" />
+    <ClInclude Include="Controller\TraningSessionPanelObserver.h" />
+    <ClInclude Include="Model\DocumentManager.h" />
+    <ClInclude Include="Model\DocumentsWorkingTool.h" />
+    <ClInclude Include="Model\Exercise.hpp" />
+    <ClInclude Include="Model\ExerciseName.hpp" />
+    <ClInclude Include="Model\ExercisesDocument.h" />
+    <ClInclude Include="Model\StringDataContainer.h" />
+    <ClInclude Include="Model\TraningSessionsDocument.h" />
     <ClInclude Include="Resources.h" />
+    <QtMoc Include="View\ViewAllExercisesDialog.h" />
+    <QtMoc Include="View\TraningSessionsPanel.h" />
+    <QtMoc Include="View\ToolBar.h" />
+    <QtMoc Include="View\ExercisesPanel.h" />
+    <QtMoc Include="View\AddTraningSessionDialog.h" />
+    <QtMoc Include="View\AddExerciseDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\ExercisesList.json" />
+    <None Include="Model\TraningSessions.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

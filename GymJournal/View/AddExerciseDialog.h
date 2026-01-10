@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QtWidgets>
-#include <string>
 
 #include "Resources.h"
 

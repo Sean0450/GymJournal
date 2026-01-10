@@ -1,11 +1,8 @@
 ﻿#pragma once
 
-#include <optional>
 #include <string>
 #include <vector>
 
-
-class ExerciseContainer;
 
 class TraningSessionPanelObserver
 {

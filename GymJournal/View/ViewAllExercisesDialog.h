@@ -2,7 +2,8 @@
 
 #include <QtWidgets>
 
-class ViewAllExercisesDialog : public QDialog {
+class ViewAllExercisesDialog : public QDialog 
+{
 	Q_OBJECT
 
 };

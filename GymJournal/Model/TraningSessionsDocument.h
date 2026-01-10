@@ -1,6 +1,9 @@
 #pragma once
 
+#include <optional>
+
 #include "DocumentsWorkingTool.h"
+
 
 class TraningSessionsDocument
 {

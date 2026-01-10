@@ -1,5 +1,6 @@
 #include "TraningSessionsDocument.h"
 
+
 void TraningSessionsDocument::AddTraningSession(const std::vector<std::string> & exercisesNames,
                                                 const std::vector<std::string> & amountAndWeight, 
                                                 const std::string & traningDate)

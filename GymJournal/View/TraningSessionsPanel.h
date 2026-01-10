@@ -1,10 +1,9 @@
 #pragma once
 
-#include <QtWidgets>
-
 #include "AddTraningSessionDialog.h"
 #include "Resources.h"
-#include "TraningSessionPanelObserver.h"
+
+class TraningSessionPanelObserver;
 
 
 class TraningSessionsPanel : public QWidget

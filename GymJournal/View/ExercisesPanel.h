@@ -1,11 +1,9 @@
 #pragma once
 
-#include <QtWidgets>
-
-#include "ExercisePanelObserver.h"
 #include "Resources.h"
 #include "AddExerciseDialog.h"
 
+class ExercisePanelObserver;
 
 class ExercisesPanel : public QWidget
 {

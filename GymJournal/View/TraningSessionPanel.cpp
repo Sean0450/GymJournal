@@ -1,4 +1,6 @@
 #include "TraningSessionsPanel.h"
+#include "Controller/TraningSessionPanelObserver.h"
+
 
 TraningSessionsPanel::TraningSessionsPanel(QWidget * parent)
   : QWidget(parent)
